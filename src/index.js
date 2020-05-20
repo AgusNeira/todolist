@@ -6,47 +6,23 @@ import './styles/main.scss';
 import { List } from './components/List.jsx';
 import { Input } from './components/Input.jsx';
 
+let data = [
+	{ text: 'Make cat', done: false },
+	{ text: 'Fuck you', done: true }
+]
+
 class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			tasks: [],
+			tasks: data,
 			input: ''
 		}
 
-		this.swapItems = this.swapItems.bind(this);
-		this.toggleDone = this.toggleDone.bind(this);
+		this.updateList = this.updateList.bind(this);
 		this.updateInput = this.updateInput.bind(this);
 		this.addItem = this.addItem.bind(this);
 		this.deleteItem = this.deleteItem.bind(this);
-	}
-
-	swapItems(index) {
-		return up => () => {
-			this.setState(oldState => {
-				let newTasks = oldState.tasks.slice();
-				let temp;
-				let index2 = up ? index - 1 : index + 1;
-				temp = newTasks[index];
-				newTasks[index] = newTasks[index2];
-				newTasks[index2] = temp;
-
-				return {
-					tasks: newTasks
-				}
-			});
-		};
-	}
-
-	toggleDone(index) {
-		return () => {
-			this.setState(oldState => ({
-				tasks: oldState.tasks
-					.map((task, i) => i === index ? 
-						{text: task.text, done: !task.done}
-						: task)
-			}));
-		}
 	}
 
 	updateInput(newInput) {
@@ -71,6 +47,13 @@ class App extends React.Component {
 		return { input: '' }
 	}
 
+	updateList(){
+		return newList => this.setState(oldState => ({
+			input: oldState.input,
+			tasks: newList
+		}));
+	}
+
 	deleteItem(index) {
 		return () => {
 			this.setState(oldState => {
@@ -89,11 +72,9 @@ class App extends React.Component {
 		return (
 			<main>
 				<h1>ToDo list</h1>
-				<Input updateInput={this.updateInput}
-					addItem={this.addItem} />
-				<List todo={this.state.tasks}
-					swapHandler={this.swapItems}
-					doneHandler={this.toggleDone}
+
+				<List tasks={this.state.tasks}
+					listUpdater={this.updateList}
 					deleteHandler={this.deleteItem} />
 			</main>
 		)

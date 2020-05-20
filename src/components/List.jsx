@@ -1,49 +1,81 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Item } from './Item.jsx';
+import { Task } from './Task.jsx';
+import { Input } from './Input.jsx';
 
-import Sortable from 'sortablejs';
+import { ReactSortable } from 'react-sortablejs';
 
 export class List extends React.Component {
-	constructor(props) {
+	constructor(props){
 		super(props);
+
+		this.state = {
+			tasks: props.tasks
+		}
+
+		this.handleDone = this.handleDone.bind(this);
+		this.handleDelete = this.handleDelete.bind(this);
+		this.handleAdd = this.handleAdd.bind(this);
 	}
 
-	componentDidMount() {
-		let elem = document.getElementById('list');
-		this.sortable = Sortable.create(elem);
+	handleDone(index) {
+		return () => {
+			this.setState(oldState => ({
+				tasks: oldState.tasks
+					.map((task, i) => i === index ? 
+						{text: task.text, done: !task.done}
+						: task)
+			}));
+		}
+	}
+	handleDelete(index) {
+		return () => {
+			this.setState(oldState => ({
+				tasks: oldState.tasks.filter((task, i) => i !== index)
+			}));
+		}
 	}
 
-	render(){
-		const items = this.props.todo.map((item, index, l) => (
-			<Item text={item.text}
-				done={item.done}
+	handleAdd(taskName) {
+		this.setState(oldState => ({
+			tasks: oldState.tasks.concat([{
+				text: taskName, done: false
+			}])
+		}));
+	}
+
+	render() {
+		const items = this.state.tasks.map((task, index, l) => (
+			<Task text={task.text}
+				done={task.done}
 				key={index}
-				first={index === 0}
-				last={index === l.length - 1}
-				swapHandler={this.props.swapHandler(index)}
-				doneHandler={this.props.doneHandler(index)}
-				deleteHandler={this.props.deleteHandler(index)} />
+				doneHandler={this.handleDone(index)}
+				deleteHandler={this.handleDelete(index)} />
 		));
-
-		return (<section id='list'>
-			{this.props.todo.length === 0 && 
-				<div className='item' >
-					<p className='soft-text'>You haven't added things to do yet...</p>
-				</div>
-			}
-			{items}
-		</section>);
+		/*{this.props.tasks.length === 0 && 
+					<div className='item' >
+						<p className='soft-text'>You haven't added things to do yet...</p>
+					</div>
+				}*/
+		return (
+			<section className='list'>
+				<Input addItem={this.handleAdd} />
+				<ReactSortable id='list'
+						setList={(newTasks) => {this.setState({tasks: newTasks})}}
+						list={this.state.tasks}
+						animation={200} >
+					{items}
+				</ReactSortable>
+			</section>
+		);
 	}
 };
 
 List.defaultProps = {
-	todo: []
+	tasks: []
 }
 
 List.propTypes = {
-	todo: PropTypes.array,
-	swapHandler: PropTypes.func.isRequired,
-	doneHandler: PropTypes.func.isRequired
+	todo: PropTypes.array
 }

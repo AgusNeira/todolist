@@ -1,0 +1,28 @@
+
+$layer-0: #121212;
+$layer-1: #1e1e1e;
+$layer-2: #232323;
+$layer-3: #252525;
+$layer-4: #272727;
+$layer-5: #2c2c2c;
+$layer-6: #2e2e2e;
+$layer-7: #333333;
+$layer-8: #363636;
+$layer-9: #383838;
+
+@mixin layer-block($color){
+	background: $color;
+	/*box-shadow: 2px 4px 3px $color;*/
+}
+
+$color1: 		hsl(207, 95%, 55%);
+$color1-shade:	hsl(207, 85%, 40%);
+$color1-light:	hsl(207, 40%, 80%);
+
+$delete-color: hsl(7, 95%, 55%);
+$delete-shade: hsl(7, 85%, 40%);
+$delete-light: hsl(7, 40%, 80%);
+
+$done-color: hsl(127, 85%, 55%);
+$done-shade: hsl(127, 85%, 40%);
+$done-light: hsl(127, 40%, 80%);

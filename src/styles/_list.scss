@@ -1,0 +1,68 @@
+@import 'buttons';
+
+@keyframes green-flash {
+	50% {
+		background-color: $done-shade;
+		box-shadow:0 0 5px $done-shade;
+	}
+}
+
+%list-block {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.list {
+	@include layer-block($layer-1);
+	border-radius: 2px;
+	padding-bottom: 20px;
+
+	div.done {
+		animation: green-flash 500ms ease-in 1;
+	}
+
+	.item {
+		@extend %list-block;
+		@include layer-block($layer-4);
+		border-radius: 5px;
+		box-sizing: border-box;
+
+		margin: 10px 20px;
+		padding: 15px;
+
+		animation: fadeInDown;
+	}
+	#input {
+		@extend %list-block;
+		@include layer-block($layer-7);
+		margin-bottom: 20px;
+		border-radius: 2px;
+		padding: 15px;
+	}
+
+	p, input {
+		flex: 1;
+		font-size: 18px;
+		text-align: left;
+		margin: 0 10px;
+	}
+	input {
+		height: 50px;
+		border-radius: 5px;
+		border: 1px solid $color1-light;
+		padding: 0 10px;
+		color: black;
+	}
+
+	button {
+		@include icon-button($color1, $color1-shade, $color1-light)
+	}
+	.item .delete {
+		@include icon-button($delete-color, $delete-shade, $delete-light);
+	}
+	.item .done {
+		@include icon-button($done-color, $done-shade, $done-light);
+	}
+}

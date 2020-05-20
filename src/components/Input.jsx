@@ -11,7 +11,9 @@ export class Input extends React.Component {
 	}
 
 	handleChange(event) {
-		this.setState(this.props.updateInput(event.target.value));
+		this.setState({
+			input: event.target.value
+		});
 	}
 	handleAdd(event) {
 		event.preventDefault();
