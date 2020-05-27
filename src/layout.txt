@@ -1,0 +1,46 @@
+datos:
+	collection: [Lista]
+	Lista: {
+		id: number,
+		title: string,
+		tasks: [Task]
+	}
+	Task: {
+		id: number,
+		text: string,
+		done: bool
+	}
+
+main
+	lists state
+
+	updateCollection: actualiza todo el conjunto
+
+	updateList: actualiza una lista
+		arg: listId
+		arg: newList
+
+	addTask: agrega una tarea a una lista
+		arg: listId
+		arg: newTask
+
+	removeTask: remueve una tarea de una lista
+		arg: listIndex
+		arg: taskId
+
+	renameTask??
+
+	toggleTaskDone: cambia el atributo done de un task
+		arg: listId
+		arg: taskId
+
+	addList: agrega una nueva lista vacía
+		arg: listName
+
+	removeList: elimina una lista de la coleccion
+		arg: listId
+
+	renameList??
+
+ListView:
+	
