@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 import GlobalContext from '../index';
 
-const TaskView = ({ id, text, done, listId, taskId }) => {
+import { SortableElement } from 'react-sortable-hoc';
+
+const TaskView = SortableElement(({ id, text, done, listId, taskId }) => {
 	const api = useContext(GlobalContext);
 
 	return (
@@ -19,6 +21,6 @@ const TaskView = ({ id, text, done, listId, taskId }) => {
 			</button>
 		</div>
 	);
-}
+});
 
 export default TaskView;

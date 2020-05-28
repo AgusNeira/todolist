@@ -19,51 +19,6 @@
 	border-radius: 2px;
 	padding-bottom: 20px;
 
-	div.done {
-		animation: green-flash 500ms ease-in 1;
-	}
-
-	.item {
-		@extend %list-block;
-		@include layer-block($layer-4);
-		border-radius: 5px;
-		box-sizing: border-box;
-
-		margin: 10px 20px;
-		padding: 15px;
-	}
-	#input {
-		@extend %list-block;
-		@include layer-block($layer-7);
-		margin-bottom: 20px;
-		border-radius: 2px;
-		padding: 15px;
-	}
-
-	p, input {
-		flex: 1;
-		font-size: 18px;
-		text-align: left;
-		margin: 0 10px;
-	}
-	input {
-		height: 50px;
-		border-radius: 5px;
-		border: 1px solid $color1-light;
-		padding: 0 10px;
-		color: black;
-	}
-
-	button {
-		@include icon-button($color1, $color1-shade, $color1-light)
-	}
-	.item .delete {
-		@include icon-button($delete-color, $delete-shade, $delete-light);
-	}
-	.item .done {
-		@include icon-button($done-color, $done-shade, $done-light);
-	}
-
 	#empty-list {
 		margin: 10px 20px;
 		padding: 15px;
@@ -76,5 +31,51 @@
 		text-align: center;
 		font-style: bold;
 		font-size: 28px;
+	}
+}
+
+.item {
+	@extend %list-block;
+	@include layer-block($layer-4);
+	border-radius: 5px;
+	box-sizing: border-box;
+
+	margin: 10px 20px;
+	padding: 15px;
+}
+
+#input {
+	@extend %list-block;
+	@include layer-block($layer-7);
+	margin-bottom: 20px;
+	border-radius: 2px;
+	padding: 15px;
+
+	input {
+		height: 50px;
+		border-radius: 5px;
+		border: 1px solid $color1-light;
+		padding: 0 10px;
+		color: black;
+	}
+}
+
+.item, #input {
+
+	p, input {
+		flex: 1;
+		font-size: 18px;
+		text-align: left;
+		margin: 0 10px;
+	}
+
+	button {
+		@include icon-button($color1, $color1-shade, $color1-light);
+	}
+	.delete {
+		@include icon-button($delete-color, $delete-shade, $delete-light);
+	}
+	.done {
+		@include icon-button($done-color, $done-shade, $done-light);
 	}
 }
