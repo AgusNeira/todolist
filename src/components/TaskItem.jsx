@@ -3,14 +3,14 @@ import GlobalContext from '../index';
 
 import { SortableElement } from 'react-sortable-hoc';
 
-const TaskView = SortableElement(({ id, text, done, listId, taskId }) => {
+const TaskItem = SortableElement(({ id, text, done, listId, taskId }) => {
 	const api = useContext(GlobalContext);
 
 	return (
-		<div className={ done? 'done item' : 'item' }>
+		<div className='task-item' >
 			<button onClick={api.toggleTaskDone(listId, taskId)}
-					className={ done? 'check done' : 'check' } >
-				<i className={ done? 'fas fa-check' : 'fas fa-circle-notch'}></i>
+					className={ done ? 'check done' : 'check' } >
+				<i className={ done ? 'fas fa-check' : 'fas fa-circle-notch'}></i>
 			</button>
 
 			<p>{text}</p>
@@ -23,4 +23,4 @@ const TaskView = SortableElement(({ id, text, done, listId, taskId }) => {
 	);
 });
 
-export default TaskView;
+export default TaskItem;

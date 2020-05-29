@@ -1,0 +1,102 @@
+@import 'colors';
+@import 'texts';
+@import 'buttons';
+
+.collection {
+	@include layer-block($layer-2);
+	width: 30vw;
+	padding: 30px 0;
+	border-radius: 5px 0 0 5px;
+
+
+	#empty-collection {
+		@extend %greyed-out;
+
+		position: relative;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	#collection-input {
+		@include layer-block($layer-5);
+
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		margin-bottom: 15px;
+
+		button {
+			@include small-icon-button($color1, $color1-shade, $color1-light);
+		}
+
+		input {
+			height: 80%;
+			color: black;
+		}
+	}
+}
+
+.list-item {
+	@include button-shadow($layer-1);
+
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+
+	box-sizing: border-box;
+	border: none;
+
+	margin-bottom: 5px;
+
+	&:hover {
+		@include layer-block($layer-5);
+	}
+	&:active {
+		@include layer-block($layer-9);
+	}
+	&.selected {
+		@include layer-block($layer-7);
+	}
+
+	transition: 0.15s background;
+
+	.text-button {
+		@extend %normal-text;
+		background: none;
+		border: none;
+		flex:1;
+
+		cursor: pointer;
+
+		&:active {
+			@include layer-block($layer-9);
+			border:none;
+		}
+	}
+	.delete {
+		@include small-icon-button($delete-color, $delete-shade, $delete-light);
+
+		i {
+			opacity: 0.5;
+			transition: 0.15s opacity;
+		}
+
+		&:hover {
+			i {
+				opacity: 1;
+			}
+		}
+	}
+	.drag-handle {
+		height: 40px;
+		width: 40px;
+
+		display:flex;
+		align-items: center;
+		justify-content: center;
+
+		cursor: pointer;
+	}
+}

@@ -1,19 +1,26 @@
 import React, { useContext } from 'react';
 import GlobalContext from '../index';
 
-import TaskView from './TaskView.jsx';
-import Input from './Input.jsx';
+import TaskItem from './TaskItem.jsx';
+import TaskInput from './TaskInput.jsx';
 
 import { SortableContainer } from 'react-sortable-hoc';
 
 const ListView = ({ list }) => {
 	const api = useContext(GlobalContext);
 
+	if (!list) {
+		return (
+			<section className='list'>
+				<p id='no-selected-list'>No list was selected...</p>
+			</section>
+		);
+	}
+
 	const List = SortableContainer(() => (
-		<div className='list'>
-	
+		<div>
 		{list.tasks.map((task, index) => 
-			<TaskView text={task.text}
+			<TaskItem text={task.text}
 				done={task.done}
 				key={task.id}
 				taskId={task.id}
@@ -25,12 +32,12 @@ const ListView = ({ list }) => {
 
 	return (
 		<section className='list'>
-			<Input listId={list.id} />
 			<h2 id='list-title'>{list.title}</h2>
+			<TaskInput listId={list.id} />
 
 			{list.taskCount === 0 ?
-				<div><p id='empty-list'>No tasks yet...</p></div> :
-				<List lockAxis='y'/>
+				<p id='empty-list'>No tasks yet...</p> :
+				<List lockAxis='y' onSortEnd={api.listOnSortEnd(list.id)}/>
 			}
 		</section>
 	)

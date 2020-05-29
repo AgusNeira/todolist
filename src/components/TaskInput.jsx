@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import GlobalContext from '../index';
 
-const Input = props => {
+const TaskInput = props => {
 	const api = useContext(GlobalContext);
 
 	let [input, setInput] = useState('');
@@ -29,4 +29,4 @@ const Input = props => {
 		</form>);
 }
 
-export default Input;
+export default TaskInput;

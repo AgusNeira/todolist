@@ -1,9 +1,12 @@
 datos:
 	collection: [Lista]
+	listCount: number
+	currentList: id
 	Lista: {
 		id: number,
 		title: string,
-		tasks: [Task]
+		tasks: [Task],
+		taskCount: number
 	}
 	Task: {
 		id: number,
@@ -20,6 +23,19 @@ main
 		arg: listId
 		arg: newList
 
+	addList: agrega una nueva lista vacía
+		arg: listName
+
+	removeList: elimina una lista de la coleccion
+		arg: listId
+
+	renameList??
+
+	selectList: selecciona una list de la coleccion para mostrar
+		arg: listId
+
+	collectionOnSortEnd: método para react-sortable-hoc, que permite modificar la colección después de reordenarla
+
 	addTask: agrega una tarea a una lista
 		arg: listId
 		arg: newTask
@@ -34,13 +50,8 @@ main
 		arg: listId
 		arg: taskId
 
-	addList: agrega una nueva lista vacía
-		arg: listName
+	listOnSortEnd: método para react-sortable-hoc, que permite modificar las tareas después de reordenarla
 
-	removeList: elimina una lista de la coleccion
-		arg: listId
-
-	renameList??
 
 ListView:
 	

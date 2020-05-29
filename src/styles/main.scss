@@ -3,23 +3,18 @@
 @import 'buttons';
 @import 'colors';
 @import 'list';
-
-$main-font: 'Baloo 2';
-
-* {
-	font-family: $main-font;
-	color: white;
-}
+@import 'collection';
 
 body {
 	background: $layer-0;
 }
 
-main {
-	width: 100%;
-	height: 100%;
-}
+#root {
+	width: 95vw;
+	height: 95vh;
+	margin: 2.5vh 2.5vw;
 
-h1 {
-	text-align: center;
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
 }

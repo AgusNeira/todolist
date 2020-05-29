@@ -1,27 +1,19 @@
 import React, { useState, createContext } from 'react';
 import ReactDOM from 'react-dom';
 
+import CollectionView from './components/CollectionView.jsx';
 import ListView from './components/ListView.jsx';
+
+import arrayMove from 'array-move';
 
 import './styles/main.scss';
 
 const GlobalContext = React.createContext(null);
 
 const MainComponent = () => {
-	let [collection, updateCollection] = useState([
-		{
-			id: 0,
-			title: 'Empty list',
-			tasks: [{
-				id: 0,
-				text: 'Fuck you',
-				done: false
-			}],
-			taskCount: 1
-		}
-	]);
-	let [listCount, setListCount] = useState(1);
-	let [currentList, setCurrentList] = useState(0);
+	let [collection, updateCollection] = useState([]);
+	let [listCount, setListCount] = useState(0);
+	let [currListId, setCurrListId] = useState(undefined);
 
 	const incrementListCount = () => setListCount(prevCount => prevCount + 1);
 	const decrementListCount = () => setListCount(prevCount => prevCount - 1);
@@ -52,13 +44,19 @@ const MainComponent = () => {
 		incrementListCount();
 	}
 
-	const removeList = listId => {
+	const removeList = listId => () => {
 		updateCollection(prevCollection => {
 			decrementListCount();
 
 			return prevCollection.filter(list => list.id !== listId);
 		})
 	}
+
+	const selectList = listId => () => setCurrListId(listId);
+
+	const collectionOnSortEnd = ({oldIndex, newIndex}) =>
+		updateCollection(prevCollection =>
+			arrayMove(prevCollection, oldIndex, newIndex));
 
 	const updateTask = (listId, taskId, newTask) => {
 
@@ -118,21 +116,37 @@ const MainComponent = () => {
 		}));
 	}
 
+	const listOnSortEnd = listId => ({oldIndex, newIndex}) =>
+		updateList(listId, prevList => ({
+			id: prevList.id,
+			title: prevList.title,
+			taskCount: prevList.taskCount,
+
+			tasks: arrayMove(prevList.tasks, oldIndex, newIndex)
+		}));
+
 	const api = {
 		updateCollection,
 		updateList,
 		addList,
 		removeList,
+		selectList,
+		collectionOnSortEnd,
 		updateTask,
 		addTask,
 		removeTask,
-		toggleTaskDone
+		toggleTaskDone,
+		listOnSortEnd
 	}
+
+	let currListIndex = collection.findIndex(list => list.id === currListId);
 
 	return (
 		<GlobalContext.Provider value={api} >
+			<CollectionView collection={collection}
+				listCount={listCount} selectedId={currListId} />
 			<ListView 
-				list={collection[currentList]} />
+				list={currListIndex !== -1 && collection[currListIndex]} />
 		</GlobalContext.Provider>
 	)
 

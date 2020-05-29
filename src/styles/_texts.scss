@@ -1,0 +1,35 @@
+@import 'colors';
+
+$main-font: 'Baloo 2';
+
+* {
+	font-family: $main-font;
+	color: white;
+}
+
+%greyed-out {
+	font-size: 20px;
+	font-style: italic;
+	opacity: 0.5;
+	text-align: center;
+}
+
+%normal-text {
+	font-size: 18px;
+	text-align: left;
+}
+
+h1 {
+	text-align: center;
+	font-size: 36px;
+}
+
+%secondary-title {
+	text-align: center;
+	font-style: bold;
+	font-size: 28px;
+	padding: 30px;
+	margin: 0;
+
+	@include layer-block($layer-1);
+}
